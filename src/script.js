@@ -23,13 +23,18 @@ const scene = new THREE.Scene();
 // )
 // scene.add(cube)
 
+const textureLoader = new THREE.TextureLoader();
+const starTexture = textureLoader.load("/textures/particles/5.png");
+starTexture.minFilter = THREE.NearestFilter;
+starTexture.magFilter = THREE.NearestFilter;
+starTexture.generateMipmaps = false;
 /*
  * Galaxy
  */
 
 const parameters = {};
 parameters.count = 10000;
-parameters.size = 0.005;
+parameters.size = 0.05;
 parameters.radius = 5;
 parameters.branches = 3;
 parameters.spin = 1;
@@ -97,6 +102,7 @@ const generateGalaxy = () => {
   material.blending = THREE.AdditiveBlending;
   material.vertexColors = true;
   material.transparent = true;
+  material.alphaMap = starTexture;
 
   points = new THREE.Points(geometry, material);
 
@@ -210,7 +216,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.x = 3;
 camera.position.y = 3;
-camera.position.z = 3;
+camera.position.z = 6;
 scene.add(camera);
 
 // Controls
